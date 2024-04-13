@@ -6971,7 +6971,7 @@ var $author$project$Page$Signup$init = {
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $elm$browser$Browser$Navigation$pushUrl = _Browser_pushUrl;
-var $author$project$Route$mountedUnder = $elm$core$Maybe$Nothing;
+var $author$project$Route$mountedUnder = $elm$core$Maybe$Just('picomponents-starter');
 var $elm$core$List$singleton = function (value) {
 	return _List_fromArray(
 		[value]);
@@ -7802,6 +7802,10 @@ var $author$project$Route$parser = $elm$url$Url$Parser$oneOf(
 			$elm$url$Url$Parser$s('preferences'))
 		]));
 var $author$project$Route$fromUrl = function (url) {
+	var _v0 = A2(
+		$elm$core$Debug$log,
+		'Url',
+		_Utils_Tuple2($author$project$Route$mountedUnder, url));
 	return A2($elm$url$Url$Parser$parse, $author$project$Route$parser, url);
 };
 var $author$project$Session$defaultPreferences = {colorScheme: $axelerator$picomponents$Pico$Theme$SystemScheme};
