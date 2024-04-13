@@ -12,7 +12,8 @@ cp $project_root/index.html $project_root/dist
 cp $project_root/picomponents.js $project_root/dist/
 cp -r $project_root/assets $project_root/dist/
 
-ln $project_root/dist/login $project_root/dist/index.html
-ln $project_root/dist/signup $project_root/dist/index.html
-ln $project_root/dist/home $project_root/dist/index.html
-ln $project_root/dist/preferences $project_root/dist/index.html
+# in case someone reloads on one of these paths we also want to load the index.html
+ln -s index.html $project_root/dist/login
+ln -s index.html $project_root/dist/signup
+ln -s index.html $project_root/dist/home
+ln -s index.html $project_root/dist/preferences
