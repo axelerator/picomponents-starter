@@ -31,22 +31,27 @@ parser =
         , map Preferences (s "preferences")
         ]
 
+
 mountedUnder : Maybe String
-mountedUnder = Nothing
+mountedUnder =
+    Nothing
+
 
 mountedUnderParser : Maybe (Parser a a)
-mountedUnderParser = 
+mountedUnderParser =
     Maybe.map s mountedUnder
+
 
 map : a -> Parser a b -> Parser (b -> c) c
 map a p =
     case mountedUnderParser of
-        Just prefix -> 
-            Parser.map a
-                <| prefix </> p
+        Just prefix ->
+            Parser.map a <|
+                prefix
+                    </> p
+
         Nothing ->
             Parser.map a p
-
 
 
 
@@ -67,10 +72,11 @@ fromUrl : Url -> Maybe Route
 fromUrl url =
     Parser.parse parser url
 
+
 routeToString : Route -> String
 routeToString page =
-    ("/" ++ Maybe.withDefault "" mountedUnder) 
-    ++ String.join "/" (routeToPieces page)
+    "/" ++ String.join "/" (routeToPieces page)
+
 
 
 -- INTERNAL
@@ -78,21 +84,29 @@ routeToString page =
 
 routeToPieces : Route -> List String
 routeToPieces page =
-    case page of
-        Landing ->
-            []
+    let
+        prefix =
+            Maybe.map List.singleton mountedUnder
+                |> Maybe.withDefault []
+    in
+    prefix
+        ++ (case page of
+                Landing ->
+                    []
 
-        Login ->
-            [ "login" ]
+                Login ->
+                    [ "login" ]
 
-        Logout ->
-            [ "logout" ]
+                Logout ->
+                    [ "logout" ]
 
-        Home ->
-            [ "home" ]
+                Home ->
+                    [ "home" ]
 
-        Signup ->
-            [ "signup" ]
+                Signup ->
+                    [ "signup" ]
 
-        Preferences ->
-            [ "preferences" ]
+                Preferences ->
+                    [ "preferences" ]
+           )
+
