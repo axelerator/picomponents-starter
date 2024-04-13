@@ -6971,35 +6971,45 @@ var $author$project$Page$Signup$init = {
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $elm$browser$Browser$Navigation$pushUrl = _Browser_pushUrl;
-var $author$project$Route$mountedUnder = $elm$core$Maybe$Just('picomponents-starter');
+var $author$project$Route$mountedUnder = $elm$core$Maybe$Nothing;
+var $elm$core$List$singleton = function (value) {
+	return _List_fromArray(
+		[value]);
+};
 var $author$project$Route$routeToPieces = function (page) {
-	switch (page.$) {
-		case 'Landing':
-			return _List_Nil;
-		case 'Login':
-			return _List_fromArray(
-				['login']);
-		case 'Logout':
-			return _List_fromArray(
-				['logout']);
-		case 'Home':
-			return _List_fromArray(
-				['home']);
-		case 'Signup':
-			return _List_fromArray(
-				['signup']);
-		default:
-			return _List_fromArray(
-				['preferences']);
-	}
+	var prefix = A2(
+		$elm$core$Maybe$withDefault,
+		_List_Nil,
+		A2($elm$core$Maybe$map, $elm$core$List$singleton, $author$project$Route$mountedUnder));
+	return _Utils_ap(
+		prefix,
+		function () {
+			switch (page.$) {
+				case 'Landing':
+					return _List_Nil;
+				case 'Login':
+					return _List_fromArray(
+						['login']);
+				case 'Logout':
+					return _List_fromArray(
+						['logout']);
+				case 'Home':
+					return _List_fromArray(
+						['home']);
+				case 'Signup':
+					return _List_fromArray(
+						['signup']);
+				default:
+					return _List_fromArray(
+						['preferences']);
+			}
+		}());
 };
 var $author$project$Route$routeToString = function (page) {
-	return _Utils_ap(
-		'/' + A2($elm$core$Maybe$withDefault, '', $author$project$Route$mountedUnder),
-		A2(
-			$elm$core$String$join,
-			'/',
-			$author$project$Route$routeToPieces(page)));
+	return '/' + A2(
+		$elm$core$String$join,
+		'/',
+		$author$project$Route$routeToPieces(page));
 };
 var $author$project$Main$sendToJs = _Platform_outgoingPort(
 	'sendToJs',
