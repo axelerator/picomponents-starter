@@ -6971,6 +6971,7 @@ var $author$project$Page$Signup$init = {
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $elm$browser$Browser$Navigation$pushUrl = _Browser_pushUrl;
+var $author$project$Route$mountedUnder = $elm$core$Maybe$Just('picomponents-starter');
 var $author$project$Route$routeToPieces = function (page) {
 	switch (page.$) {
 		case 'Landing':
@@ -6993,10 +6994,12 @@ var $author$project$Route$routeToPieces = function (page) {
 	}
 };
 var $author$project$Route$routeToString = function (page) {
-	return '/' + A2(
-		$elm$core$String$join,
-		'/',
-		$author$project$Route$routeToPieces(page));
+	return _Utils_ap(
+		'/' + A2($elm$core$Maybe$withDefault, '', $author$project$Route$mountedUnder),
+		A2(
+			$elm$core$String$join,
+			'/',
+			$author$project$Route$routeToPieces(page)));
 };
 var $author$project$Main$sendToJs = _Platform_outgoingPort(
 	'sendToJs',
@@ -7715,8 +7718,7 @@ var $elm$url$Url$Parser$s = function (str) {
 			}
 		});
 };
-var $author$project$Route$mountedUnder = $elm$core$Maybe$Just(
-	$elm$url$Url$Parser$s('picomponents-starter'));
+var $author$project$Route$mountedUnderParser = A2($elm$core$Maybe$map, $elm$url$Url$Parser$s, $author$project$Route$mountedUnder);
 var $elm$core$List$concatMap = F2(
 	function (f, list) {
 		return $elm$core$List$concat(
@@ -7736,7 +7738,7 @@ var $elm$url$Url$Parser$slash = F2(
 	});
 var $author$project$Route$map = F2(
 	function (a, p) {
-		var _v0 = $author$project$Route$mountedUnder;
+		var _v0 = $author$project$Route$mountedUnderParser;
 		if (_v0.$ === 'Just') {
 			var prefix = _v0.a;
 			return A2(
