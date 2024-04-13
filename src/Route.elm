@@ -70,6 +70,10 @@ replaceUrl key route =
 
 fromUrl : Url -> Maybe Route
 fromUrl url =
+    let
+        _ = Debug.log "Url" (mountedUnder, url)
+    in
+    
     Parser.parse parser url
 
 

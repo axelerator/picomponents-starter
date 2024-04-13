@@ -3,6 +3,8 @@
 This is a [Elm](https://guide.elm-lang.org) example app using the 
 [picomponents](https://package.elm-lang.org/packages/axelerator/picomponents/latest/) package.
 
+[Live Demo](https://blog.axelerator.de/picomponents-starter)
+
 Every time I start a new project I nearly always want to start with the following things:
 
 - A user login
