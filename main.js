@@ -7689,23 +7689,6 @@ var $elm$url$Url$Parser$map = F2(
 						A5($elm$url$Url$Parser$State, visited, unvisited, params, frag, subValue)));
 			});
 	});
-var $elm$core$List$concatMap = F2(
-	function (f, list) {
-		return $elm$core$List$concat(
-			A2($elm$core$List$map, f, list));
-	});
-var $elm$url$Url$Parser$oneOf = function (parsers) {
-	return $elm$url$Url$Parser$Parser(
-		function (state) {
-			return A2(
-				$elm$core$List$concatMap,
-				function (_v0) {
-					var parser = _v0.a;
-					return parser(state);
-				},
-				parsers);
-		});
-};
 var $elm$url$Url$Parser$s = function (str) {
 	return $elm$url$Url$Parser$Parser(
 		function (_v0) {
@@ -7732,6 +7715,50 @@ var $elm$url$Url$Parser$s = function (str) {
 			}
 		});
 };
+var $author$project$Route$mountedUnder = $elm$core$Maybe$Just(
+	$elm$url$Url$Parser$s('picomponents-starter'));
+var $elm$core$List$concatMap = F2(
+	function (f, list) {
+		return $elm$core$List$concat(
+			A2($elm$core$List$map, f, list));
+	});
+var $elm$url$Url$Parser$slash = F2(
+	function (_v0, _v1) {
+		var parseBefore = _v0.a;
+		var parseAfter = _v1.a;
+		return $elm$url$Url$Parser$Parser(
+			function (state) {
+				return A2(
+					$elm$core$List$concatMap,
+					parseAfter,
+					parseBefore(state));
+			});
+	});
+var $author$project$Route$map = F2(
+	function (a, p) {
+		var _v0 = $author$project$Route$mountedUnder;
+		if (_v0.$ === 'Just') {
+			var prefix = _v0.a;
+			return A2(
+				$elm$url$Url$Parser$map,
+				a,
+				A2($elm$url$Url$Parser$slash, prefix, p));
+		} else {
+			return A2($elm$url$Url$Parser$map, a, p);
+		}
+	});
+var $elm$url$Url$Parser$oneOf = function (parsers) {
+	return $elm$url$Url$Parser$Parser(
+		function (state) {
+			return A2(
+				$elm$core$List$concatMap,
+				function (_v0) {
+					var parser = _v0.a;
+					return parser(state);
+				},
+				parsers);
+		});
+};
 var $elm$url$Url$Parser$top = $elm$url$Url$Parser$Parser(
 	function (state) {
 		return _List_fromArray(
@@ -7740,25 +7767,25 @@ var $elm$url$Url$Parser$top = $elm$url$Url$Parser$Parser(
 var $author$project$Route$parser = $elm$url$Url$Parser$oneOf(
 	_List_fromArray(
 		[
-			A2($elm$url$Url$Parser$map, $author$project$Route$Landing, $elm$url$Url$Parser$top),
+			A2($author$project$Route$map, $author$project$Route$Landing, $elm$url$Url$Parser$top),
 			A2(
-			$elm$url$Url$Parser$map,
+			$author$project$Route$map,
 			$author$project$Route$Login,
 			$elm$url$Url$Parser$s('login')),
 			A2(
-			$elm$url$Url$Parser$map,
+			$author$project$Route$map,
 			$author$project$Route$Logout,
 			$elm$url$Url$Parser$s('logout')),
 			A2(
-			$elm$url$Url$Parser$map,
+			$author$project$Route$map,
 			$author$project$Route$Home,
 			$elm$url$Url$Parser$s('home')),
 			A2(
-			$elm$url$Url$Parser$map,
+			$author$project$Route$map,
 			$author$project$Route$Signup,
 			$elm$url$Url$Parser$s('signup')),
 			A2(
-			$elm$url$Url$Parser$map,
+			$author$project$Route$map,
 			$author$project$Route$Preferences,
 			$elm$url$Url$Parser$s('preferences'))
 		]));
