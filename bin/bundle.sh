@@ -2,9 +2,7 @@
 
 project_root=$(dirname $0)/..
 
-sed 's/mountedUnder = Nothing/mountedUnder = Just "picomponents-starter"/g' $project_root/src/Route.elm
-sed -i 's/mountedUnder = Nothing/mountedUnder = Just "picomponents-starter"/g' $project_root/src/Route.elm
-
+sed -i 's/    mountedUnderRoot/   Just "picomponents-starter"/g' $project_root/src/Route.elm
 
 $(dirname $0)/build.sh 
 

@@ -32,9 +32,14 @@ parser =
         ]
 
 
+mountedUnderRoot : Maybe String
+mountedUnderRoot =
+    Nothing
+
+
 mountedUnder : Maybe String
 mountedUnder =
-    Nothing
+    mountedUnderRoot
 
 
 mountedUnderParser : Maybe (Parser a a)
@@ -71,9 +76,9 @@ replaceUrl key route =
 fromUrl : Url -> Maybe Route
 fromUrl url =
     let
-        _ = Debug.log "Url" (mountedUnder, url)
+        _ =
+            Debug.log "Url" ( mountedUnder, url )
     in
-    
     Parser.parse parser url
 
 
@@ -113,4 +118,3 @@ routeToPieces page =
                 Preferences ->
                     [ "preferences" ]
            )
-
