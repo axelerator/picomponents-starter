@@ -31,12 +31,16 @@ parser =
         , map Preferences (s "preferences")
         ]
 
-mountedUnder : Maybe (Parser a a)
+mountedUnder : Maybe String
 mountedUnder = Nothing
+
+mountedUnderParser : Maybe (Parser a a)
+mountedUnderParser = 
+    Maybe.map s mountedUnder
 
 map : a -> Parser a b -> Parser (b -> c) c
 map a p =
-    case mountedUnder of
+    case mountedUnderParser of
         Just prefix -> 
             Parser.map a
                 <| prefix </> p
@@ -65,7 +69,8 @@ fromUrl url =
 
 routeToString : Route -> String
 routeToString page =
-    "/" ++ String.join "/" (routeToPieces page)
+    ("/" ++ Maybe.withDefault "" mountedUnder) 
+    ++ String.join "/" (routeToPieces page)
 
 
 -- INTERNAL
