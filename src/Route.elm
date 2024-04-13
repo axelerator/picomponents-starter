@@ -23,13 +23,26 @@ type Route
 parser : Parser (Route -> a) a
 parser =
     oneOf
-        [ Parser.map Landing Parser.top
-        , Parser.map Login (s "login")
-        , Parser.map Logout (s "logout")
-        , Parser.map Home (s "home")
-        , Parser.map Signup (s "signup")
-        , Parser.map Preferences (s "preferences")
+        [ map Landing Parser.top
+        , map Login (s "login")
+        , map Logout (s "logout")
+        , map Home (s "home")
+        , map Signup (s "signup")
+        , map Preferences (s "preferences")
         ]
+
+mountedUnder : Maybe (Parser a a)
+mountedUnder = Nothing
+
+map : a -> Parser a b -> Parser (b -> c) c
+map a p =
+    case mountedUnder of
+        Just prefix -> 
+            Parser.map a
+                <| prefix </> p
+        Nothing ->
+            Parser.map a p
+
 
 
 
