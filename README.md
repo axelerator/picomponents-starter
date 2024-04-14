@@ -32,5 +32,5 @@ app must actually be served by a web server.
 The project contains a [Caddyfile](https://caddyserver.com/docs/caddyfile-tutorial) that you can use to serve the
 app with `caddy run`.
 
-Alternatively you can use Python's `python3 -m http.server` if that's your thing (reloadong on any other URL than `/` won't work
+Alternatively you can use Python's `python3 -m http.server` if that's your thing (reloading on any other URL than `/` won't work
 then though because the other routes don't correspond with actual files).
