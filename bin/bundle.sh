@@ -13,7 +13,10 @@ cp $project_root/picomponents.js $project_root/dist/
 cp -r $project_root/assets $project_root/dist/
 
 # in case someone reloads on one of these paths we also want to load the index.html
-ln -s index.html $project_root/dist/login
-ln -s index.html $project_root/dist/signup
-ln -s index.html $project_root/dist/home
-ln -s index.html $project_root/dist/preferences
+arr_variable=("login" "signup" "home" "preferences")
+for i in "${arr_variable[@]}"
+do
+    mkdir $project_root/dist/$i
+    ln -s ../index.html $project_root/dist/$i/index.html
+done
+   
