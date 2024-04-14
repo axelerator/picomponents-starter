@@ -17,6 +17,9 @@ arr_variable=("login" "signup" "home" "preferences")
 for i in "${arr_variable[@]}"
 do
     mkdir $project_root/dist/$i
-    ln -s ../index.html $project_root/dist/$i/index.html
+    cp $project_root/index.html $project_root/dist/$i/
+    # change relative paths to point one folder up
+    sed -i -E 's/(src|href)="([^h])/\1="..\/\2/g' $project_root/dist/$i/index.html
+    cat $project_root/dist/$i/index.html
 done
    
